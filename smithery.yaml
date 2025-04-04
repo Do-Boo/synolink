@@ -1,29 +1,34 @@
-# Smithery.ai configuration
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+build:
+  dockerfile: Dockerfile
+  dockerBuildPath: .
 startCommand:
   type: stdio
   configSchema:
+    # JSON Schema defining the configuration options for the MCP.
     type: object
+    required:
+      - synoHost
+      - synoUser
+      - synoPass
     properties:
       synoHost:
         type: string
-        title: "Synology Host"
-        description: "Synology NAS hostname or IP address"
-      synoPort:
-        type: integer
-        title: "Synology Port"
-        description: "Synology NAS port (default: 5000)"
-        default: 5000
-      synoUser:
-        type: string
-        title: "Synology Username"
-        description: "Synology NAS login username"
+        description: Synology NAS 호스트 주소 (IP 또는 도메인명)
       synoPass:
         type: string
-        title: "Synology Password"
-        description: "Synology NAS login password"
-        format: password
-    required: ["synoHost", "synoUser", "synoPass"]
-  commandFunction: |-
+        description: Synology NAS 로그인 비밀번호
+      synoPort:
+        type: number
+        default: 5000
+        description: "Synology NAS 포트 (기본값: 5000)"
+      synoUser:
+        type: string
+        description: Synology NAS 로그인 사용자명
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
     (config) => ({
       "command": "node",
       "args": [
@@ -36,6 +41,3 @@ startCommand:
         "SYNO_PASS": config.synoPass
       }
     })
-build:
-  dockerfile: "Dockerfile"
-  dockerBuildPath: "."
