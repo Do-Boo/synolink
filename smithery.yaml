@@ -2,10 +2,6 @@ startCommand:
   type: stdio
   configSchema:
     type: object
-    required:
-      - synoHost
-      - synoUser
-      - synoPass
     properties:
       synoHost:
         type: string
@@ -21,12 +17,11 @@ startCommand:
         type: string
         description: "Synology NAS login password"
         format: password
+    required: ["synoHost", "synoUser", "synoPass"]
   commandFunction: |-
     (config) => ({ 
       command: 'node', 
-      args: [
-        'dist/index.js'
-      ],
+      args: ['dist/index.js'],
       env: {
         SYNO_HOST: config.synoHost,
         SYNO_PORT: String(config.synoPort || 5000),
@@ -36,4 +31,3 @@ startCommand:
     })
 build:
   dockerfile: "Dockerfile"
-  dockerBuildPath: "."

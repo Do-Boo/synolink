@@ -1,4 +1,4 @@
-FROM node:22-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY src ./src
 RUN npm run build
 RUN chmod +x dist/index.js
 
-FROM node:22-alpine AS release
+FROM node:20-alpine AS release
 
 WORKDIR /app
 
