@@ -7,20 +7,20 @@ startCommand:
       synoHost:
         type: string
         title: "Synology Host"
-        description: "Synology NAS 호스트 주소 (IP 또는 도메인명)"
+        description: "Synology NAS hostname or IP address"
       synoPort:
-        type: number
+        type: integer
         title: "Synology Port"
-        description: "Synology NAS 포트 (기본값: 5000)"
+        description: "Synology NAS port (default: 5000)"
         default: 5000
       synoUser:
         type: string
         title: "Synology Username"
-        description: "Synology NAS 로그인 사용자명"
+        description: "Synology NAS login username"
       synoPass:
         type: string
         title: "Synology Password"
-        description: "Synology NAS 로그인 비밀번호"
+        description: "Synology NAS login password"
         format: password
     required: ["synoHost", "synoUser", "synoPass"]
   commandFunction: |-
